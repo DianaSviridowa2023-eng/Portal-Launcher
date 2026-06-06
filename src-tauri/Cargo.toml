@@ -1,0 +1,52 @@
+[package]
+name = "portal-launcher"
+version = "1.2.0"
+description = "Portal Launcher — Minecraft Launcher"
+authors = ["Portal Team"]
+license = "MIT"
+repository = ""
+default-run = "portal-launcher"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "portal_launcher_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "portal-launcher"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["devtools"] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["json", "stream", "gzip"] }
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+zip = "2"
+flate2 = "1"
+tar = "0.4"
+sha2 = "0.10"
+dirs-next = "2"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+keyring = { version = "3", features = ["sync-secret-service"] }
+env_logger = "0.11"
+log = "0.4"
+lazy_static = "1"
+bytes = "1"
+libc = "0.2"
+
+[profile.dev]
+incremental = true
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
